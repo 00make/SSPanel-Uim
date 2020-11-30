@@ -31,7 +31,8 @@ jobs:
           # extensions: fpm, mysql, curl, gd, mbstring, xml, xmlrpc, opcache, zip, json, bz2, bcmath
       - name: Setup MySQL
         run: |
+          sudo /etc/init.d/mysql start
           sudo mysql -e "CREATE DATABASE sspanel; use sspanel; source sql/glzjin_all.sql;"
           sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('sspanel') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
           sudo mysql_upgrade -u root -psspanel
-          sudo /etc/init.d/mysql start
+          sudo /etc/init.d/mysql restart
